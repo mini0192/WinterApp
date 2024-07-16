@@ -1,22 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
-import MainPage from './pages/MainPage';
-import { MainStyle } from './styles/MainStyle';
-import Header from './pages/Header';
-import Bottom from './pages/Bottom';
-import React, { createContext, useState } from "react";
+import React from 'react';
+import Navigation from './pages/Navigation';
 
-export const CITY = createContext();
-
+export const CITY = React.createContext("도시");
 export default function App() {
   return (
-    <View style={ MainStyle.container }>
-      <CITY.Provider value={useState("도시")}>
-        <Header/>
-        <MainPage/>
-        <Bottom/>
-        <StatusBar style="auto" />
+      <CITY.Provider value="도시">
+          <Navigation />
       </CITY.Provider>
-    </View>
   );
 }
