@@ -1,20 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
+import MainPage from './pages/MainPage';
+import { MainStyle } from './styles/MainStyle';
+import Header from './pages/Header';
+import Bottom from './pages/Bottom';
+import React, { createContext, useState } from "react";
+
+export const CITY = createContext();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={ MainStyle.container }>
+      <CITY.Provider value={useState("도시")}>
+        <Header/>
+        <MainPage/>
+        <Bottom/>
+        <StatusBar style="auto" />
+      </CITY.Provider>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
