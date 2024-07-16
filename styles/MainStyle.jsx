@@ -7,11 +7,18 @@ export const MainStyle = StyleSheet.create({
         justifyContent: "center",
     },
   
-    titleText: {
+    bigTitleText: {
+        fontWeight: 'bold',
         fontSize: 25,
+    },
+
+    smallTitletext: {
+        fontWeight: 'bold',
+        fontSize: 20,
     },
   
     text: {
-        fontSize: 15,
+        fontWeight: 'light',
+        fontSize: 18,
     },
 });

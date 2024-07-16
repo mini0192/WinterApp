@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navigation from './pages/Navigation';
 
-export const CITY = React.createContext("도시");
+export const CityContext = React.createContext();
+export const UserFeelLikeContext = React.createContext();
+export const WeatherContext = React.createContext();
+
 export default function App() {
+
   return (
-      <CITY.Provider value="도시">
+      <WeatherContext.Provider value={ useState({}) }>
+      <UserFeelLikeContext.Provider value={ useState() }>
+      <CityContext.Provider value={ useState() }>
           <Navigation />
-      </CITY.Provider>
+      </CityContext.Provider>
+      </UserFeelLikeContext.Provider>
+      </WeatherContext.Provider>
   );
 }

@@ -1,15 +1,20 @@
 import { Text, View } from "react-native";
 import { MainStyle } from "../../styles/MainStyle";
 import { useContext } from "react";
-import { CITY } from "../Navigation";
+import { UserFeelLikeContext, WeatherContext } from "../../App";
+import { UserFeelData, UserHumidity, UserWeather, UserWindSpeed } from "../../config/User";
 
 export default function Home() {
-    const [city, setCity] = useContext(CITY);
-    
+
+    const [weather, setWeather] = useContext(WeatherContext);
+    const [feelLike, setFeelLike] = useContext(UserFeelLikeContext);
+
     return (
         <View style={ MainStyle.body }>
-            <Text>{ city }</Text>
-            <Text>왜 안대</Text>
+            { UserFeelData(feelLike, weather) }
+            { UserWeather(weather) }
+            { UserHumidity(weather) }
+            { UserWindSpeed(weather) }
         </View>
     );
 }

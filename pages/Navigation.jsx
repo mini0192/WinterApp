@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -6,21 +6,25 @@ import MyPage from './MainPages/MyPage';
 import Home from './MainPages/Home';
 import { Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import icon from '../assets/icon.png';
-import { locateApi } from '../config/Api';
+import { locateApi, weatherApi } from '../config/Api';
 
-export const CITY = React.createContext("CITY");
+import { CityContext, UserFeelLikeContext, WeatherContext } from '../App';
+
+import icon from '../assets/icon.png';
+import { getItem, setItem } from '../config/UserData';
 
 export default function Navigation() {
-  const Stack = createNativeStackNavigator();
 
-  const [city, setCity] = useContext(CITY);
+  const [city, setCity] = useContext(CityContext);
+  const [feelLike, setFeelLike] = useContext(UserFeelLikeContext);
+  const [weather, setWeather] = useContext(WeatherContext);
     
   useEffect(() => {
-      locateApi()
-      .then(res => {
-          setCity(res);
+      locateApi().then(res => {
+        weatherApi(res).then(res => setWeather(res))
+        setCity(res)
       })
+      getItem("feel_like").then(res => setFeelLike(res))
   }, []);
 
   const HomeScreenOptions = ({ navigation }) => ({
@@ -34,6 +38,7 @@ export default function Navigation() {
     ),
   });
 
+  const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
